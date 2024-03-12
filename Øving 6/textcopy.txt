@@ -1,0 +1,11 @@
+1 Ole
+2 Dole
+3 Doffen
+4 Kinkliana
+5 Koffen
+6 Koffliana
+7 Birkabane
+8 Ole
+9 Dole
+10 Odffen
+11 quit
