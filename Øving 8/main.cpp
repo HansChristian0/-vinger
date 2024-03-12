@@ -1,20 +1,21 @@
-//
-// This is example code from Chapter 2.2 "The classic first program" of
-// "Programming -- Principles and Practice Using C++" by Bjarne Stroustrup
-//
-// This program outputs the message "Hello, World!" to the monitor
+#include "iostream"
 
-#include "std_lib_facilities.h"
+void fillInFibnumb(int* result, int length) {
+    for (int i=0; i<length; i++) {
+        if (i == 0 or i == 1) {
+            result[i] = 1;
+        }
+        else {
+            result[i] = result[i-1]+result[i-2];
+        }
+    }
+    std::cout << result[6] << std::endl;
+}
 
-//------------------------------------------------------------------------------'
-
-// C++ programs start by executing the function main
 int main() {
-    // Show a nice message in the Terminal window
-    cout << "Hello, World!" << endl;
-
-    // This lets the operating system (Windows, Mac, Linux, etc.) know that the program
-    // did not encounter any errors
+    int a = 19;
+    fillInFibnumb(&a, 7);
+    std::cout << *(&a+5) << std::endl;
     return 0;
 }
 
