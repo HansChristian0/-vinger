@@ -14,7 +14,6 @@ public:
     ~Matrix();
 
     Matrix(const Matrix& rhs);
-    Matrix& operator=(const Matrix& matrix);
 
     double get(int row, int col);
     void set(int row, int col, double value);
@@ -22,4 +21,11 @@ public:
     int getColumns();
     
     friend std::ostream& operator<<(std::ostream& os, Matrix* matrixToPrint);
+    Matrix& operator=(const Matrix& matrix);
+    Matrix& operator+=(const Matrix& otherMatrix);
+    friend Matrix& operator+(Matrix& lhs, Matrix& rhs);
+    Matrix& operator-=(const Matrix& otherMatrix);
+    friend Matrix& operator-(Matrix& lhs, Matrix& rhs);
+    Matrix& operator*=(const Matrix& otherMatrix);
+    friend Matrix& operator*(Matrix& lhs, Matrix& rhs);
 };

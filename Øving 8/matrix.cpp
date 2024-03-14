@@ -46,6 +46,38 @@ Matrix& Matrix::operator=(const Matrix& otherMatrix) {
     return *this;
 }
 
+Matrix& Matrix::operator+=(const Matrix& otherMatrix) {
+    for (int i=0; i<rows*columns; i++) {
+        matrix[i] += otherMatrix.matrix[i];
+    }
+    return *this;
+}
+
+Matrix& operator+(Matrix& lhs, Matrix& rhs) {
+    return lhs+=rhs;
+}
+
+Matrix& Matrix::operator-=(const Matrix& otherMatrix) {
+    for (int i=0; i<rows*columns; i++) {
+        matrix[i] -= otherMatrix.matrix[i];
+    }
+    return *this;
+}
+
+Matrix& operator-(Matrix& lhs, Matrix& rhs) {
+    return lhs-=rhs;
+}
+Matrix& Matrix::operator*=(const Matrix& otherMatrix) {
+    for (int i=0; i<rows*columns; i++) {
+        matrix[i] *= otherMatrix.matrix[i];
+    }
+    return *this;
+}
+
+Matrix& operator*(Matrix& lhs, Matrix& rhs) {
+    return lhs*=rhs;
+}
+
 Matrix::~Matrix() {
     delete[] matrix;
     std::cout << "Matrix is destructed" << std::endl;
