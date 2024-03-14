@@ -13,6 +13,9 @@ public:
     explicit Matrix(int nRows);
     ~Matrix();
 
+    Matrix(const Matrix& rhs);
+    Matrix& operator=(const Matrix& matrix);
+
     double get(int row, int col);
     void set(int row, int col, double value);
     int getRows();

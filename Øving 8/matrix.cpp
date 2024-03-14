@@ -6,7 +6,7 @@ Matrix::Matrix(int nRows, int nColmns) : rows{nRows}, columns{nColmns} {
     assert(nColmns>0 && nRows>0);
     matrix = new double[nRows*nColmns];
     for (int i=0; i<nRows*nColmns; i++) {
-        matrix[i] = 0;
+        matrix[i] = 2;
     }
 }
 
@@ -24,6 +24,26 @@ Matrix::Matrix(int nRows) : rows{nRows}, columns{nRows} {
             i++;
         }
     }
+}
+
+Matrix::Matrix(const Matrix& rhs) {
+    rows = rhs.rows;
+    columns = rhs.columns;
+    matrix = new double[rows*columns];
+    for (int i = 0; i < rows * columns; ++i) {
+        matrix[i] = rhs.matrix[i];
+    }
+}
+
+Matrix& Matrix::operator=(const Matrix& otherMatrix) {
+    rows = otherMatrix.rows;
+    columns = otherMatrix.columns;
+    delete[] matrix;
+    matrix = new double[rows*columns];
+    for (int i = 0; i < rows * columns; ++i) {
+        matrix[i] = otherMatrix.matrix[i];
+    }
+    return *this;
 }
 
 Matrix::~Matrix() {
@@ -46,7 +66,7 @@ int Matrix::getColumns(){
     return columns;
 }
 
-std::ostream& operator<<(std::ostream& os, Matrix* matrixToPrint) {
+std::ostream &operator<<(std::ostream& os, Matrix *matrixToPrint) {
     int i = 0;
     for (int row=0; row<matrixToPrint->rows; row++) {
         for (int column=0; column<matrixToPrint->columns; column++) {
