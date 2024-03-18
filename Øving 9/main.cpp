@@ -1,18 +1,10 @@
 #include "car.h"
 #include "iostream"
+#include "person.h"
+
 int main() {
-    Car ford(3);
-    if (ford.hasFreeSeats()){
-        std::cout << "Ledig" << std::endl;
-    } else {
-        std::cout << "Opptatt" << std::endl;
-    }
-    ford.reserveFreeSeat();
-    ford.reserveFreeSeat();
-    if (ford.hasFreeSeats()){
-        std::cout << "Ledig" << std::endl;
-    } else {
-        std::cout << "Opptatt" << std::endl;
-    }
+    Person Per("Per", "gmail.com");
+
+    std::cout << &Per;
     return 0;
 }
