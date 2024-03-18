@@ -4,9 +4,9 @@
 Animal::Animal(string name, int age)
     : name{name}, age{age} {}
 
-/*Animal::~Animal() {
+Animal::~Animal() {
     cout << "Destructor executed" << endl;
-}*/
+}
 
 string Animal::toString() {
     stringstream returnStream;
@@ -44,6 +44,5 @@ void testAnimal() {
     for (unique_ptr<Animal>& animal : animals) {
         cout << animal->toString() << endl;
     }
-    cout << animals.at(0)->toString() << endl;
     animals.clear();
 }

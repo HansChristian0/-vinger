@@ -8,7 +8,7 @@ protected:
 
 public:
     Animal(string name, int age);
-    //~Animal();
+    virtual ~Animal();
 
     virtual string toString() = 0;
 };

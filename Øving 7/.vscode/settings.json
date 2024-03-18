@@ -6,6 +6,9 @@
     "makefile.alwaysPreConfigure": false,
     "files.associations": {
         "sstream": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "iostream": "cpp",
+        "vector": "cpp",
+        "ostream": "cpp"
     }
 }
