@@ -19,4 +19,6 @@ public:
     bool hasAvailableSeats();
 
     const friend std::ostream& operator<<(std::ostream& os, Person* person);
+
+    
 };

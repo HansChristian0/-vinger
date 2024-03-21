@@ -5,7 +5,7 @@
 
 int main() {
     Campus NTNU = Campus::Trondheim;
-    std::cout << NTNU;
+    std::cout << &NTNU;
 
     return 0;
 }
