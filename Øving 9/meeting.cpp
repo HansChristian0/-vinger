@@ -24,6 +24,18 @@ std::ostream& operator<<(std::ostream& os, Campus* campus) {
     return os;
 }
 
+std::ostream& operator<<(std::ostream& os, Meeting* møte) {
+    os << "Klokka " << møte->getStartTime() << " til " << møte->getEndTime() << std::endl 
+    << "Aktivitet: " << møte->getSubject() << " sammen med " << møte->getLeader() << std::endl
+    << "Lokasjon: " << møte->getLocation() << std::endl 
+    << "Deltagere er ";
+    std::vector<std::string> navn = møte->getParticipantList();
+    for (std::string deltager : møte->getParticipantList()) {
+        os << deltager << std::endl;
+    }
+    return os;
+}
+
 Meeting::Meeting(int day, int startTime, int endTime, Campus location, std::string subject, std::shared_ptr<Person> leader)
 : leader{std::move(leader)} {
     this->day = day;
@@ -31,7 +43,7 @@ Meeting::Meeting(int day, int startTime, int endTime, Campus location, std::stri
     this->endTime = endTime;
     this->location = location;
     this->subject = subject;
-    addParticipant(leader);
+    //addParticipant(leader);
 }
 
 int Meeting::getDay()
@@ -66,9 +78,10 @@ std::string Meeting::getLeader() {
 
 std::vector<std::string> Meeting::getParticipantList() {
     std::vector<std::string> deltagereString;
-    for (std::shared_ptr<Person>& person : participants) {
+    for (std::shared_ptr<Person>& person : this->participants) {
         deltagereString.push_back(person->getName());
     }
+    return deltagereString;
 }
 
 void Meeting::addParticipant(std::shared_ptr<Person> person) {

@@ -35,3 +35,5 @@ public:
 
     void addParticipant(std::shared_ptr<Person> person);
 };
+
+std::ostream& operator<<(std::ostream& os, Meeting* møte);
