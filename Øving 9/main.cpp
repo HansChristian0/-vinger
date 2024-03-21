@@ -1,10 +1,11 @@
 #include "car.h"
 #include "iostream"
 #include "person.h"
+#include "meeting.h"
 
 int main() {
-    Person Per("Per", "gmail.com");
+    Campus NTNU = Campus::Trondheim;
+    std::cout << NTNU;
 
-    std::cout << &Per;
     return 0;
 }
