@@ -18,7 +18,7 @@ public:
     std::string getEmail();
     bool hasAvailableSeats();
 
-    const friend std::ostream& operator<<(std::ostream& os, Person* person);
+    const friend std::ostream& operator<<(std::ostream& os, std::shared_ptr<Person> person);
 
-    
+
 };

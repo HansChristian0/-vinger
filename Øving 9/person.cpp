@@ -30,7 +30,7 @@ bool Person::hasAvailableSeats() {
     return false;
 }
 
-const std::ostream& operator<<(std::ostream& os, Person* person) {
+const std::ostream& operator<<(std::ostream& os, std::shared_ptr<Person> person) {
     if (person->car != nullptr){
         os << person->getName() << " (" << person->getEmail() << ")" << " har bilplass." << std::endl;
     } else {

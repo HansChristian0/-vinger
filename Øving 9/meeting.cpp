@@ -28,22 +28,23 @@ std::ostream& operator<<(std::ostream& os, Meeting* møte) {
     os << "Klokka " << møte->getStartTime() << " til " << møte->getEndTime() << std::endl 
     << "Aktivitet: " << møte->getSubject() << " sammen med " << møte->getLeader() << std::endl
     << "Lokasjon: " << møte->getLocation() << std::endl 
-    << "Deltagere er ";
+    << "Deltagere er: ";
     std::vector<std::string> navn = møte->getParticipantList();
     for (std::string deltager : møte->getParticipantList()) {
-        os << deltager << std::endl;
+        os << std::endl << deltager;
     }
+    os << std::endl;
     return os;
 }
 
 Meeting::Meeting(int day, int startTime, int endTime, Campus location, std::string subject, std::shared_ptr<Person> leader)
-: leader{std::move(leader)} {
+: leader{leader} {
     this->day = day;
     this->startTime = startTime;
     this->endTime = endTime;
     this->location = location;
     this->subject = subject;
-    //addParticipant(leader);
+    addParticipant(leader);
 }
 
 int Meeting::getDay()
@@ -86,4 +87,17 @@ std::vector<std::string> Meeting::getParticipantList() {
 
 void Meeting::addParticipant(std::shared_ptr<Person> person) {
     participants.push_back(person);
+}
+
+std::vector<std::shared_ptr<Person>> Meeting::findPotentialCoDriver(Meeting* anotherMeeting) {
+    std::vector<std::shared_ptr<Person>> ledigeBiler;
+    if (this->location == anotherMeeting->location && this->day == anotherMeeting->day && 
+    abs(this->startTime-anotherMeeting->startTime)<=1 && abs(this->endTime-anotherMeeting->endTime) <=1) {
+        for (std::shared_ptr<Person>& deltaker : anotherMeeting->participants) {
+            if (deltaker->hasAvailableSeats()) {
+                ledigeBiler.push_back(deltaker);
+            }
+        }
+    }
+    return ledigeBiler;
 }

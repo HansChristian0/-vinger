@@ -34,6 +34,7 @@ public:
     std::vector<std::string> getParticipantList();
 
     void addParticipant(std::shared_ptr<Person> person);
+    std::vector<std::shared_ptr<Person>> findPotentialCoDriver(Meeting* anotherMeeting);
 };
 
 std::ostream& operator<<(std::ostream& os, Meeting* møte);
