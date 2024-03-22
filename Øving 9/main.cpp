@@ -2,9 +2,15 @@
 #include "iostream"
 #include "person.h"
 #include "meeting.h"
+#include "meetingWindow.h"
 
 int main() {
-    Campus NTNU = Campus::Trondheim;
+    MeetingWindow win;
+    win.wait_for_close();
+
+
+
+    /*Campus NTNU = Campus::Trondheim;
     Campus Ålesund = Campus::Ålesund;
     std::shared_ptr<Person> Per = std::make_shared<Person>("Per", "gmail.com");
     Meeting lek(4, 16, 20, NTNU, "Lek og morro", Per);
@@ -16,7 +22,7 @@ int main() {
     std::cout << &lek;
 
     Meeting lek2(4, 17, 21, Ålesund, "Lek og morro", Per);
-    auto a = lek2.findPotentialCoDriver(&lek);
+    auto a = lek2.findPotentialCoDriver(&lek);*/
 
     return 0;
 }
