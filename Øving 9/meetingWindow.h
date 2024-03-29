@@ -5,6 +5,7 @@
 #include "widgets/Button.h"
 #include "iostream"
 #include "car.h"
+#include "person.h"
 
 class MeetingWindow : public AnimationWindow {
 private:
@@ -32,9 +33,17 @@ const unsigned int personSeatsBtnWidth = 200;
 const unsigned int personSeatsBtnHeight = 40;
 const string personSeatsBtnLabel = "Ledige seter";
 TDT4102::TextInput personSeatsTxt {personSeatsBtnPosition, personSeatsBtnWidth, personSeatsBtnHeight, personSeatsBtnLabel};
+const Point addBtnPosition {100, 300};
+const unsigned int addBtnWidth = 200;
+const unsigned int addBtnHeight = 40;
+const string addBtnLabel = "Add person!";
+TDT4102::Button addBtn {addBtnPosition, addBtnWidth, addBtnHeight, addBtnLabel};
 
 public:
     MeetingWindow();
 
+    std::vector<std::shared_ptr<Person>> people;
+
     void cb_quit();
+    void newPerson();
 };
