@@ -5,8 +5,9 @@
 #include "meetingWindow.h"
 
 int main() {
-    MeetingWindow win;
-    win.wait_for_close();
+    MeetingWindow personWin;
+    personWin.wait_for_close();
+
 
 
 
