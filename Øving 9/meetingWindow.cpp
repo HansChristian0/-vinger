@@ -1,6 +1,7 @@
 #include "meetingWindow.h"
 #include "iostream"
 #include "person.h"
+#include "meeting.h"
 
 MeetingWindow::MeetingWindow()
     : AnimationWindow(x, y, w, h, "Tittel") {
@@ -23,7 +24,8 @@ MeetingWindow::MeetingWindow()
         add(locationDP);
         add(subjectTxt);
         add(leaderDP);
-
+        addMeetingBtn.setCallback(std::bind(&MeetingWindow::addMeeting, this));
+        add(addMeetingBtn);
 
         nameTxt.setVisible(false);
         emailTxt.setVisible(false);
@@ -35,6 +37,7 @@ MeetingWindow::MeetingWindow()
         locationDP.setVisible(false);
         subjectTxt.setVisible(false);
         leaderDP.setVisible(false);
+        addMeetingBtn.setVisible(false);
     }
 
 void MeetingWindow::cb_quit() {
@@ -55,6 +58,27 @@ void MeetingWindow::newPerson() {
     }
 }
 
+void MeetingWindow::addMeeting() {
+    Campus campus;
+    if (locationDP.getValue() == "Trondheim") {
+        campus = Campus::Trondheim;
+    } else if (locationDP.getValue() == "Ålesund") {
+        campus = Campus::Ålesund;
+    } else if (locationDP.getValue() == "Gjøvik") {
+        campus = Campus::Gjøvik;
+    }
+    std::shared_ptr<Person> leder;
+    for (std::shared_ptr<Person>& leder : people) {
+        if (leder->getEmail() == leaderDP.getValue()) {
+            meetings.emplace_back(new Meeting(stoi(dayTxt.getText()), stoi(startTimeTxt.getText()), stoi(endTimeTxt.getText()), campus, subjectTxt.getText(), leder));
+            break;
+        }   
+    }
+    for (std::shared_ptr<Meeting>& møte : meetings) {
+        std::cout << møte;
+    }
+}
+
 void MeetingWindow::showPersonAdding() {
     dayTxt.setVisible(false);
     startTimeTxt.setVisible(false);
@@ -62,6 +86,7 @@ void MeetingWindow::showPersonAdding() {
     locationDP.setVisible(false);
     subjectTxt.setVisible(false);
     leaderDP.setVisible(false);
+    addMeetingBtn.setVisible(false);
     nameTxt.setVisible(true);
     emailTxt.setVisible(true);
     personSeatsTxt.setVisible(true);
@@ -71,7 +96,7 @@ void MeetingWindow::showMeetingAdding() {
     if (people.size() > 0) {
         std::vector<std::string> options;
         for (std::shared_ptr<Person>& navn : people) {
-            options.push_back(navn->getName());
+            options.push_back(navn->getEmail());
         }
         leaderDP.setOptions(options);
     }
@@ -81,6 +106,7 @@ void MeetingWindow::showMeetingAdding() {
     locationDP.setVisible(true);
     subjectTxt.setVisible(true);
     leaderDP.setVisible(true);
+    addMeetingBtn.setVisible(true);
     nameTxt.setVisible(false);
     emailTxt.setVisible(false);
     personSeatsTxt.setVisible(false);

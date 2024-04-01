@@ -7,6 +7,7 @@
 #include "iostream"
 #include "car.h"
 #include "person.h"
+#include "meeting.h"
 
 class MeetingWindow : public AnimationWindow {
 private:
@@ -81,15 +82,22 @@ const int leaderDPWidth = 200;
 const int leaderDPHeight = 40;
 std::vector<std::string> optionsPers {"###"};
 DropdownList leaderDP{leaderDPosition, leaderDPWidth, leaderDPHeight, optionsPers};
+const Point addMeetingBtnPosition {100, 450};
+const unsigned int addMeetingBtnWidth = 200;
+const unsigned int addMeetingBtnHeight = 40;
+const string addMeetingBtnLabel = "Add meeting!";
+TDT4102::Button addMeetingBtn {addMeetingBtnPosition, addMeetingBtnWidth, addMeetingBtnHeight, addMeetingBtnLabel};
 
 
 public:
     MeetingWindow();
 
     std::vector<std::shared_ptr<Person>> people;
+    std::vector<std::shared_ptr<Meeting>> meetings;
 
     void cb_quit();
     void newPerson();
     void showPersonAdding();
     void showMeetingAdding();
+    void addMeeting();
 };
