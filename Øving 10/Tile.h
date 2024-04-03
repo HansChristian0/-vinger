@@ -28,7 +28,7 @@ private:
 public:
 	Tile(TDT4102::Point pos, int size);
 
-	void open();
+	void open(int n);
 	void flag();
 
 	bool getMine();

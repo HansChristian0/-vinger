@@ -22,14 +22,15 @@ MinesweeperWindow::MinesweeperWindow(int x, int y, int width, int height, int mi
 		numberList.push_back(i);
 	}
 
-	std::random_device rd;
-	std::mt19937 generator(rd());
-	std::uniform_int_distribution<int> distr(0, numberList.size()-1);
-
 	for (int i=0; i<mines; i++) {
-		int randomNumber = numberList.at(distr(rd));
-		numberList.erase(numberList.begin() + distr(rd));
-		tiles.at(randomNumber)->setMine(true);
+		std::random_device rd;
+		std::mt19937 generator(rd());
+		std::uniform_int_distribution<int> distr(0, numberList.size()-1);
+		
+
+		int randomNumber = distr(rd);
+		tiles.at(numberList.at(randomNumber))->setMine(true);
+		numberList.erase(numberList.begin() + randomNumber);
 	}
 }
 
@@ -50,9 +51,41 @@ vector<Point> MinesweeperWindow::adjacentPoints(Point xy) const {
 	return points;
 }
 
+int MinesweeperWindow::countMines(vector<Point> points) const {
+	int mines = 0;
+	for (Point& point : points) {
+		int tile = point.x/cellSize + width*std::floor(point.y/cellSize);
+		if (tiles.at(tile)->getMine()) {
+			mines++;
+		}
+	}
+	return mines;
+}
+
 void MinesweeperWindow::openTile(Point xy) {
 	int tile = xy.x/cellSize + width*std::floor(xy.y/cellSize);
-	tiles.at(tile)->open();
+	vector<Point> adjacentPointsList;
+	if (countMines(adjacentPoints(xy))==0) {
+		tiles.at(tile)->open(0);
+		for (Point& point : adjacentPoints(xy)) {
+			if (tiles.at(point.x/cellSize + width*std::floor(point.y/cellSize))->getState() == Cell::closed) {
+				bool present = false;
+				for (Point& pointList : adjacentPointsList) {
+					if (pointList.x == point.x && pointList.y == point.y) {
+						present = true;
+					}
+				}
+				if (!present) {
+					adjacentPointsList.push_back(point);
+				}
+			}
+		}
+		for (Point& point : adjacentPointsList) {
+			openTile(point);
+		}
+	} else {
+		tiles.at(tile)->open(countMines(adjacentPoints(xy)));
+	}
 }
 
 void MinesweeperWindow::flagTile(Point xy) {

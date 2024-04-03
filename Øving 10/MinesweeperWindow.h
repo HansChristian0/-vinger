@@ -26,7 +26,7 @@ private:
 	vector<Point> adjacentPoints(Point xy) const;
 
 	// tell miner basert paa en liste tiles
-	int countMines(vector<Point> coords) const;
+	int countMines(vector<Point> points) const;
 
 	// Sjekker at et punkt er paa brettet
 	bool inRange(Point xy) const { return xy.x >= 0 && xy.x< Width() && xy.y >= 0 && xy.y < Height(); }

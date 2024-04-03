@@ -12,13 +12,16 @@ Tile::Tile(TDT4102::Point pos, int size) :
 		setButtonColor(TDT4102::Color::silver);
 	}
 
-void Tile::open() {	
+void Tile::open(int n) {	
 	if (Tile::getState() == Cell::closed) {
 		Tile::state = Cell::open;
 		Tile::setButtonColor(TDT4102::Color::white);
+		if (n != 0) {
+			Tile::set_label(std::to_string(n));
+		}
 		if (Tile::getMine() == true) {
 			Tile::setButtonColor(TDT4102::Color::red);
-		}
+		} 
 	}
 }
 
