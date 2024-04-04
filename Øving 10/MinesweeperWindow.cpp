@@ -103,8 +103,42 @@ void MinesweeperWindow::cb_click() {
 	}
 	if (this->is_left_mouse_button_down()) {
 		openTile(xy);
+		checkLoss();
+		checkWin();
 	}
 	else if(this->is_right_mouse_button_down()){
 		flagTile(xy);
+	}
+}
+bool win = true;
+bool loss = false;
+void MinesweeperWindow::checkWin() {
+	win = true;
+	for (shared_ptr<Tile>& tile : tiles) {
+		if (tile->getState() == Cell::closed && tile->getMine()==false) {
+			win = false;
+		}
+	}
+	if (win && !loss) {
+		add(winTxt);
+	}
+}
+void MinesweeperWindow::checkLoss() {
+	loss = false;
+	for (shared_ptr<Tile>& tile : tiles) {
+		if (tile->getState() == Cell::open && tile->getMine()==true) {
+			loss = true;
+		}
+	}
+	if (loss) {
+		for (shared_ptr<Tile>& tile : tiles) {
+			if (tile->getMine()) {
+				tile->setLabel("|>");
+				tile->setButtonColor(TDT4102::Color::red);
+			} else {
+				tile->setButtonColor(TDT4102::Color::white);
+				tile->setLabel("");
+			}
+		}
 	}
 }

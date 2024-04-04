@@ -18,6 +18,7 @@ void Tile::open(int n) {
 		Tile::setButtonColor(TDT4102::Color::white);
 		if (n != 0) {
 			Tile::set_label(std::to_string(n));
+			Tile::setButtonColor(minesToColor.at(n));
 		}
 		if (Tile::getMine() == true) {
 			Tile::setButtonColor(TDT4102::Color::red);
