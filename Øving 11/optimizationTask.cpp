@@ -4,17 +4,17 @@
 
 // Utdelt kode til oppgave 3
 
-void setDiagonalValue(std::vector<std::vector<double>>& matrix, double newValue){
-    for (int row = 0; row < matrix.size(); row++){
+void setDiagonalValue(std::vector<std::vector<float>>& matrix, float newValue){
+    
+    for (int row = 0; row < matrix.size(); row++) {
         matrix.at(row).at(row) = newValue;
     }
 }
 
-double sumMatrix(std::vector<std::vector<double>> matrix){
- double sum;
-    for (int i = 0; i < matrix.size()*matrix.size(); i++){
-        double value = matrix.at(int(i/matrix.size())).at(i-matrix.size()*int(i/matrix.size()));
-        sum += value;
+double sumMatrix(std::vector<std::vector<float>> matrix){
+    double sum;
+    for (int i = 0; i < std::pow(matrix.size(), 2); i++){
+        sum += matrix.at(int(i/matrix.size())).at(i-matrix.size()*int(i/matrix.size()));
     }
     return sum;
 }
@@ -24,9 +24,10 @@ void optimizationTask() {
     const int matrixSize = 10000;
 
     // Create a matrix with zeros
-    std::vector<std::vector<double>> matrix;
-    std::vector<double> column;
+    std::vector<std::vector<float>> matrix;
+    std::vector<float> column;
     column.resize(matrixSize);
+    matrix.reserve(matrixSize);
     for (int i = 0; i < matrixSize; i++){
         matrix.push_back(column);
     }
@@ -35,8 +36,8 @@ void optimizationTask() {
     setDiagonalValue(matrix, 0.41);
     
     // Sum all elements in the matrix
-    double total = sumMatrix(matrix);
+    float total = sumMatrix(matrix);
 
-    double coolerNumber = total + 2;
+    float coolerNumber = total + 2;
     std::cout << "TDT" << coolerNumber << std::endl;
 }

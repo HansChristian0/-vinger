@@ -31,6 +31,7 @@ exe = executable(
   src,
 'Stopwatch.cpp',
 'main.cpp',
+'myArray.cpp',
 'optimizationTask.cpp',
   dependencies : [animationwindow_dep, sdl2_dep],
   cpp_args : compiler_flags
