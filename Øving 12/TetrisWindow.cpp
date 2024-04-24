@@ -8,6 +8,7 @@ TetrisWindow::TetrisWindow(int xPos, int yPos, int width, int height) :
     startPoint = TDT4102::Point{xPos+width/6, yPos+10};
     this->width = width;
     this->height = height;
+    windowPoint = TDT4102::Point{xPos, yPos};
     generateRandomTetromino();
 }
 
@@ -15,7 +16,7 @@ void TetrisWindow::drawCurrentTetromino() {
     for (int row = 0; row<currentTetromino.getMatrixSize(); row++) {
         for (int column = 0; column<currentTetromino.getMatrixSize(); column++) {
             if (currentTetromino.blockExist(row, column)) {
-                draw_rectangle(TDT4102::Point{startPoint.x+row*currentTetromino.blockSize, startPoint.y + column*currentTetromino.blockSize}, currentTetromino.blockSize, currentTetromino.blockSize);
+                draw_rectangle(TDT4102::Point{currentTetromino.getPosition().x+row*currentTetromino.blockSize, currentTetromino.getPosition().y + column*currentTetromino.blockSize}, currentTetromino.blockSize, currentTetromino.blockSize);
             }
         }
     }
@@ -30,7 +31,7 @@ void TetrisWindow::run() {
         if(framesSinceLastTetronimoMove >= framesPerTetronimoMove) {
             framesSinceLastTetronimoMove = 0;
             /********************************************************/
-
+            moveTetrominoDown();
             /********************************************************/
         }
         handleInput();
@@ -52,25 +53,55 @@ void TetrisWindow::generateRandomTetromino() {
     currentTetromino = Tetromino{startPoint, static_cast<TetrominoType>(randomNumber)};
 }
 
+void TetrisWindow::moveTetrominoDown() {
+    if (currentTetromino.getPosition().y < height- 5*currentTetromino.blockSize) {
+        currentTetromino.moveDown();
+    }
+}
+
 void TetrisWindow::handleInput() {
 
     static bool lastZKeyState = false;
     static bool lastUpKeyState = false;
+    static bool lastLeftKeyState = false;
+    static bool lastRightKeyState = false;
+    static bool lastDownKeyState = false;
 
     bool currentZKeyState = is_key_down(KeyboardKey::Z);
     bool currentUpKeyState = is_key_down(KeyboardKey::UP);
+    bool currentLeftKeyState = is_key_down(KeyboardKey::LEFT);
+    bool currentRightKeyState = is_key_down(KeyboardKey::RIGHT);
+    bool currentDownKeyState = is_key_down(KeyboardKey::DOWN);
 
     
     if(currentZKeyState && !lastZKeyState) {
-        std::cout << "Hello from z\n";
+        currentTetromino.rotateCounterClockwise();
     }
 
     if(currentUpKeyState && !lastUpKeyState) {
-        std::cout << "Hello from up\n";
+        currentTetromino.rotateClockwise();
+    }
+    if(currentLeftKeyState && !lastLeftKeyState) {
+        if (currentTetromino.getPosition().x > 5*currentTetromino.blockSize) {
+            currentTetromino.moveLeft();
+        }
+    }
+    if(currentRightKeyState && !lastRightKeyState) {
+        if (currentTetromino.getPosition().x < width-9*currentTetromino.blockSize) {
+            currentTetromino.moveRight();
+        }
+    }
+    if(currentDownKeyState && !lastDownKeyState) {
+        if (currentTetromino.getPosition().y < height- 5*currentTetromino.blockSize) {
+            currentTetromino.moveDown();
+        }
     }
 
 
     lastZKeyState = currentZKeyState;
     lastUpKeyState = currentUpKeyState;
+    lastLeftKeyState = currentLeftKeyState;
+    lastRightKeyState = currentRightKeyState;
+    lastDownKeyState = currentDownKeyState;
 }
 

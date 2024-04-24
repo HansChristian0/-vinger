@@ -121,7 +121,7 @@ void Tetromino::rotateClockwise() {
 }
 
 void Tetromino::moveDown() {
-    topLeftCorner.y -= blockSize;
+    topLeftCorner.y += blockSize;
 }
 void Tetromino::moveLeft() {
     topLeftCorner.x -= blockSize;

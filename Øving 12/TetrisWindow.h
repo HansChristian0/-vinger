@@ -14,10 +14,13 @@ public:
 
     void generateRandomTetromino();
     void drawCurrentTetromino();
+    void moveTetrominoDown();
+    void addTetrominoToGrid();
 
 private:
     int height;
     int width;
+    TDT4102::Point windowPoint;
     TDT4102::Point startPoint;
     int blocksize;
     void handleInput();
